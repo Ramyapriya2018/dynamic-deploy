@@ -1,10 +1,14 @@
 import { useLoaderData } from "@remix-run/react";
 
 export async function loader() {
-  const res = await fetch("http://backend-api:8080/users");
+  const res = await fetch(`${apiUrl}/users`);
   const users = await res.json();
   return users;
 }
+const apiUrl =
+  typeof window === "undefined"
+    ? "http://backend-api:8080"
+    : "http://localhost:5000";
 
 export default function Index() {
   const users = useLoaderData();
