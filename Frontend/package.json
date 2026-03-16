@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "remix dev",
     "build": "remix build",
-    "start": "node build/index.js"
+    "start": "remix-serve build/index.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
