@@ -1,0 +1,9 @@
+mssql:
+  password: "Str0ngPass@123"
+
+backend:
+  env:
+    connectionString: "Server=mssql;Database=TestDeploymentDB_stage;User Id=sa;Password=Str0ngPass@123;TrustServerCertificate=True;Encrypt=False;"
+
+frontend:
+  replicaCount: 2 # 👈 more than dev

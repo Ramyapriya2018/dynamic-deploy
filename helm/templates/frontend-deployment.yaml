@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remix-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: remix-frontend
+  template:
+    metadata:
+      labels:
+        app: remix-frontend
+    spec:
+      containers:
+        - name: remix-frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 3000

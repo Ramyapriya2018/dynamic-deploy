@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api # IMPORTANT (matches your frontend code)
+spec:
+  type: ClusterIP
+  selector:
+    app: backend-api
+  ports:
+    - port: 8080
+      targetPort: 8080

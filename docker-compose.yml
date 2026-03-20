@@ -3,7 +3,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
     environment:
-      SA_PASSWORD: "DockerPass123!"
+      SA_PASSWORD: "Str0ngPass@123"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
@@ -18,7 +18,7 @@ services:
     ports:
       - "5000:8080"
     environment:
-      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=TestDeploymentDB;User Id=sa;Password=DockerPass123!;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=TestDeploymentDB;User Id=sa;Password=Str0ngPass@123;TrustServerCertificate=True;"
 
   frontend:
     build: ./Frontend
