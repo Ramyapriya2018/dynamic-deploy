@@ -6,26 +6,25 @@ on:
       - master
 
 jobs:
-  debug:
-    name: Debug files
-    runs-on: ubuntu-latest
-    steps:
-      - name: List workspace
-        run: |
-          ls -la
-          ls -la Backend
-
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      # 📥 Checkout
+      # ✅ 1. Checkout FIRST (VERY IMPORTANT)
       - name: Checkout repository
         uses: actions/checkout@v5
+
+      # ✅ 2. Debug (verify folders exist)
+      - name: Debug files
+        run: |
+          ls -la
+          ls -la Backend
+          ls -la Frontend
+
+      # ✅ 3. Setup Node
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
 
       # 🔐 Docker login
       - name: Login to DockerHub
@@ -34,13 +33,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🏗 Build image (IMPORTANT: unique tag)
-      - name: Build Docker Image
+      # 🏗 Build Backend Image
+      - name: Build Backend Image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/dynamic-test-backend:${{ github.sha }} ./Backend
 
-      # 📦 Push image
-      - name: Push Docker Image
+      # 📦 Push Backend Image
+      - name: Push Backend Image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/dynamic-test-backend:${{ github.sha }}
 
@@ -50,7 +49,7 @@ jobs:
           echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
           export KUBECONFIG=$PWD/kubeconfig
 
-      # 🚀 Deploy ONLY to DEV
+      # 🚀 Deploy
       - name: Deploy to Dev
         run: |
           helm upgrade --install backend-dev ./helm \
