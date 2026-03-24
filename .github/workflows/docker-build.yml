@@ -6,6 +6,15 @@ on:
       - master
 
 jobs:
+  debug:
+    name: Debug files
+    runs-on: ubuntu-latest
+    steps:
+      - name: List workspace
+        run: |
+          ls -la
+          ls -la Backend
+
   build:
     runs-on: ubuntu-latest
 
