@@ -15,7 +15,7 @@ spec:
       containers:
         - name: remix-frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
-          imagePullPolicy: Never
+          imagePullPolicy: Always
 
           ports:
             - containerPort: 3000

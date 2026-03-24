@@ -64,6 +64,7 @@ export default function UsersPage() {
 
   return (
     <div style={{ padding: 30, fontFamily: "Arial" }}>
+      <h1>My App - CI/CD Test ✅</h1>
       <h2 style={{ marginBottom: 20 }}>👥 Users Management</h2>
 
       {/* Search */}
