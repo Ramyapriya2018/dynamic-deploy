@@ -51,9 +51,15 @@ jobs:
 
       # 🚀 Deploy
       - name: Deploy to Dev
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $KUBECONFIG
+
+          kubectl get nodes
+
           helm upgrade --install backend-dev ./helm \
-          --namespace dev \
-          --create-namespace \
-          --set image.repository=${{ secrets.DOCKER_USERNAME }}/dynamic-test-backend \
-          --set image.tag=${{ github.sha }}
+            --namespace dev \
+            --create-namespace \
+            --set image.repository=${{ secrets.DOCKER_USERNAME }}/dynamic-test-backend \
+            --set image.tag=${{ github.sha }}
